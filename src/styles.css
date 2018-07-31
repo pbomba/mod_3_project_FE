@@ -2,18 +2,7 @@
   background: url(../public/drumset.jpg) no-repeat center center fixed;
   background-size: cover;
   opacity: 0.9;
-  height: 100vh;
-}
-
-.overlay {
-    width: 100%; /* Full width (cover the whole page) */
-    height: 100%; /* Full height (cover the whole page) */
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
-    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  height: 100%;
 }
 
 #welcome {
@@ -24,17 +13,19 @@
 }
 
 #intro {
-  font-family: 'Overpass', sans-serif;
+  font-family: 'Overpass', sans-serif!important;
   font-size: 20px;
   color: #fff;
   text-shadow: 1px 1px #000;
 }
 
+
 .tracks {
   margin-left: 100px;
 }
 
-.tracks > h3 {
+.tracks > h4 {
+  font-family: 'Overpass', sans-serif!important;
   color: #fff;
   text-shadow: 1px 1px #000;
 }
