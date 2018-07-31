@@ -1,35 +1,56 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="src/styles.css" media="screen" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <title>Muzak</title>
+    <link href="https://fonts.googleapis.com/css?family=Overpass:400,600|Permanent+Marker" rel="stylesheet">
+    <title>Remixer</title>
   </head>
+
   <body>
-    <div class="intro">
-      <h1 id="hello">MAKE MUZAAK!!</h1>
-    </div>
-    <div class="complete_track">
-        <button class="sound" id="coin">Coin</button>
-        <button class="sound" id="horn">Horn</button><br>
-        <button class="play_all" id="play">Play</button>
-    </div>
-    <div class="track_one">
-        <h3>Track 1</h3>
-        <button class="record" id="record_1" data-id="1">Record</button><button class="play" data-id="1">Play</button><button class="delete" disabled="true" id="record_1">Delete</button><br>
-    </div>
-    <div class="track_two">
-        <h3>Track 2</h3>
-        <button class="record" id="record_2"data-id="2">Record</button><button class="play" data-id="2">Play</button><button class="delete" disabled="true" id="record_1">Delete</button><br>
-    </div>
-    <div class="track_three">
-        <h3>Track 3</h3>
-        <button class="record" id="record_3" data-id="3">Record</button><button class="play" data-id="3">Play</button><button class="delete" disabled="true" id="record_1">Delete</button><br>
-    </div>
-        <script src="./src/index.js"></script>
-    	  <script src="./p5.min.js"></script>
-        <script src="./addons/p5.dom.min.js"></script>
-        <script src="./addons/p5.sound.min.js"></script>
+    <div class="container-fluid overlay" id="content">
+
+        <div class="complete_track pt-5 pb-5" align="center">
+            <h1 id="welcome">Remixer</h1>
+            <p id="intro">Make your own song! Hit record to start a track. <br/> Add your instruments and play your song back! </p>
+            <button class="btn sound" id="coin">Coin</button>
+            <button class="btn sound" id="horn">Horn</button>
+            <div class="pb-3"></div>
+            <button class="btn play_all" id="play">Play</button>
+        </div>
+
+        <div class="tracks">
+            <h3>Track 1</h3>
+            <button class="btn mr-3 record" id="record_1" data-id="1">Record</button>
+            <button class="btn mr-3 play" data-id="1">Play</button>
+            <button class="btn delete" disabled="true" id="record_1">Delete</button><br>
+        </div>
+
+        <div class="tracks">
+            <h3>Track 2</h3>
+            <button class="btn mr-3 record" id="record_2"data-id="2">Record</button>
+            <button class="btn mr-3  play" data-id="2">Play</button>
+            <button class="btn delete" disabled="true" id="record_1">Delete</button><br>
+        </div>
+
+        <div class="tracks">
+            <h3>Track 3</h3>
+            <button class="btn mr-3 record" id="record_3" data-id="3">Record</button>
+            <button class="btn mr-3  play" data-id="3">Play</button>
+            <button class="btn delete" disabled="true" id="record_1">Delete</button><br>
+        </div>
+
+     </div>
+
+     <script src="./src/index.js"></script>
+     <script src="./p5.min.js"></script>
+     <script src="./addons/p5.dom.min.js"></script>
+     <script src="./addons/p5.sound.min.js"></script>
+     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   </body>
+
 </html>
