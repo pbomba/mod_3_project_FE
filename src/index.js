@@ -1,6 +1,6 @@
 hello = document.querySelector("#hello")
 document.addEventListener('click', clickHandler)
-// document.addEventListener('keydown', clickHandler)
+document.addEventListener('keydown', keyDownHandler)
 
 // eventArray[0] = reserved, eventArray[1] = track 1, eventArray[2] = track 2, eventArray[3] = track 3
 let eventArray = [[], [], [], []]
@@ -23,10 +23,9 @@ function draw() {}
 
 function clickHandler(e) {
 	// if the button is a sound
-	if (e.target.className === "sound" || (e.key >= 1 && e.key < 6) ) {
+	if (e.target.className === "sound") {
 			// if we are "recording"
-			if (recording_track > 0){
-				
+			if (recording_track > 0){	
 			e.preventDefault()
 			sounds[e.target.id].play()
 			eventItem = e.target.id
@@ -60,6 +59,72 @@ function clickHandler(e) {
 	}
 }
 
+function keyDownHandler(e) {
+	if (recording_track > 0){
+		switch (e.key){
+			case '1' :
+			e.preventDefault()
+			sounds['coin'].play()
+			eventItem = 'coin'
+			eventTime = e.timeStamp
+			eventObj = {sound: eventItem, time: eventTime}
+			eventArray[recording_track].push(eventObj)
+			break
+			case '2' :
+			e.preventDefault()
+			sounds['horn'].play()
+			eventItem = 'horn'
+			eventTime = e.timeStamp
+			eventObj = {sound: eventItem, time: eventTime}
+			eventArray[recording_track].push(eventObj)
+			break
+			case '3' :
+			e.preventDefault()
+			sounds['beep'].play()
+			eventItem = 'beep'
+			eventTime = e.timeStamp
+			eventObj = {sound: eventItem, time: eventTime}
+			eventArray[recording_track].push(eventObj)
+			break
+			case '4' :
+			e.preventDefault()
+			sounds['boop'].play()
+			eventItem = 'boop'
+			eventTime = e.timeStamp
+			eventObj = {sound: eventItem, time: eventTime}
+			eventArray[recording_track].push(eventObj)
+			break			
+			case '5' :
+			e.preventDefault()
+			sounds['ping'].play()
+			eventItem = 'ping'
+			eventTime = e.timeStamp
+			eventObj = {sound: eventItem, time: eventTime}
+			eventArray[recording_track].push(eventObj)
+			break
+		}
+	} else {
+		switch (e.key){
+			case '1' :
+				sounds['coin'].play()
+				break
+			case '2' :
+				sounds['horn'].play()
+				break
+			case '3' :
+				sounds['beep'].play()
+				break
+			case '4' :
+				sounds['boop'].play()
+				break
+			case '5' :
+				sounds['ping'].play()
+				break
+			case "spacebar" :
+		}
+	}
+}
+
 function startRecording (timeStamp, track) {
 	eventArray[track] = []
 	rec_start = timeStamp
@@ -72,16 +137,21 @@ function startRecording (timeStamp, track) {
 function resetRec () {
 rec_btn.disabled = false
 rec_btn.innerText = "Record"
+recording_track = 0
 }
 
 function mapArray(track) {
-	track_time = eventArray[track][0].time
-	return eventArray[track].map(function(obj){
-		return {
-			sound: obj.sound,
-			time: obj.time - track_time
-		}
-	})
+	if (eventArray[track].length > 0) {	
+		track_time = eventArray[track][0].time
+		return eventArray[track].map(function(obj){
+			return {
+				sound: obj.sound,
+				time: obj.time - track_time
+			}
+		})
+	} else {
+		return [];
+	}
 }
 
 function playTrack(soundTimesArray) {
