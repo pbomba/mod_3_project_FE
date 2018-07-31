@@ -1,8 +1,10 @@
 hello = document.querySelector("#hello")
 document.addEventListener('click', clickHandler)
 
-let eventArray = []
+// eventArray[0] = reserved, eventArray[1] = track 1, eventArray[2] = track 2, eventArray[3] = track 3
+let eventArray = [[], [], [], []]
 let rec_start = 0
+let recording_track = 0
 
 function setup() {
 	sounds = {
@@ -15,39 +17,47 @@ function setup() {
 function draw() {}
 
 function clickHandler(e) {
+	// if the button is a sound
 	if (e.target.className === "sound") {
-		if (e.timeStamp < rec_start + 10000 && rec_start != 0 ){
+		// if we are "recording"
+		if (recording_track > 0){
 		e.preventDefault()
 		sounds[e.target.id].play()
 		eventItem = e.target.id
 		eventTime = e.timeStamp
 		eventObj = {sound: eventItem, time: eventTime}
-		eventArray.push(eventObj)
+		eventArray[recording_track].push(eventObj)
+		// if not recording, just plays sound
 		} else {
 			sounds[e.target.id].play()
 		}
+	// if the button is "record"
 	} else if (e.target.className === "record"){
-	startRecording(e.timeStamp)
+	recording_track = parseInt(e.target.dataset.id)
+	startRecording(e.timeStamp, recording_track)
 	eventItem = 'record'
 	eventTime = e.timeStamp
 	eventObj = {sound: eventItem, time: eventTime}
-	eventArray.push(eventObj)
-	} else if (e.target.className === "play"){
+	eventArray[recording_track].push(eventObj)
+	// if the button is "play"
+	} else if (e.target.className === "play_all"){
 		soundTimesArray = mapArray()
 		playMusic(soundTimesArray)
 	}
 }
 
-function startRecording (timeStamp) {
-	eventArray = []
+function startRecording (timeStamp, track) {
+	eventArray[track] = []
 	rec_start = timeStamp
-	rec_btn = document.querySelector('#record')
+	rec_btn = document.querySelector('#record_1')
 	rec_btn.disabled = true
+	rec_btn.innerText = "Stop"
 	setTimeout(resetRec, 10000)
 }
 
 function resetRec () {
 rec_btn.disabled = false
+rec_btn.innerText = "Record"
 }
 
 function mapArray() {
