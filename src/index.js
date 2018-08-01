@@ -30,7 +30,7 @@ function clickHandler(e) {
 	// if the button is a sound
 	if (e.target.classList.contains("sound")) {
 			// if we are "recording"
-			if (recording_track > 0){	
+			if (recording_track > 0){
 			e.preventDefault()
 			sounds[e.target.id].play()
 			sounds[e.target.id].setVolume(0.3)
@@ -114,7 +114,7 @@ function keyDownHandler(e) {
 			eventTime = e.timeStamp
 			eventObj = {sound: eventItem, time: eventTime}
 			eventArray[recording_track].push(eventObj)
-			break			
+			break
 			case '5' :
 			e.preventDefault()
 			sounds['ping'].play()
@@ -210,7 +210,7 @@ sounds[beat].stop()
 }
 
 function mapArray(track) {
-	if (eventArray[track].length > 0) {	
+	if (eventArray[track].length > 0) {
 		track_time = eventArray[track][0].time
 		return eventArray[track].map(function(obj){
 			return {
@@ -258,6 +258,9 @@ function mergeTracks() {
 	let mergedWithZero = [...zeroArray,...merger,...longest]
 	return mergedWithZero
 }
+
+//Controls Main Progress Bar
+
 
 // eventArray.forEach (function (i) {
 // 	console.log(Object.keys(i))

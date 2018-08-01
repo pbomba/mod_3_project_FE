@@ -1,8 +1,9 @@
-#content {
+body {
   background: url(../public/drumset.jpg) no-repeat center center fixed;
   background-size: cover;
   opacity: 0.9;
   height: 100%;
+  background-color: #221e15
 }
 
 #welcome {
@@ -14,18 +15,45 @@
 
 #intro {
   font-family: 'Overpass', sans-serif!important;
-  font-size: 20px;
+  font-size: 22px;
   color: #fff;
   text-shadow: 1px 1px #000;
 }
 
+#trackbar {
+  display: inline-block;
+  /* position: relative;
+  left: 100px; */
+  width: 75%;
+}
+
+#trackLayer1 {
+  width: 75%;
+  margin-bottom: 10px;
+}
+
+#trackLayer2 {
+  width: 75%;
+  margin-bottom: 10px;
+}
+
+#trackLayer3 {
+  width: 75%;
+  margin-bottom: 10px;
+}
+
+
+
+.tracker {
+  margin-left: 100px;
+}
 
 .tracks {
   margin-left: 100px;
 }
 
-.tracks > h4 {
+h5 {
   font-family: 'Overpass', sans-serif!important;
-  color: #fff;
+  color: #fff!important;
   text-shadow: 1px 1px #000;
 }
