@@ -219,6 +219,9 @@ function mergeTracks() {
 	return mergedWithZero
 }
 
+//Controls Main Progress Bar
+
+
 // eventArray.forEach (function (i) {
 // 	console.log(Object.keys(i))
 // })
