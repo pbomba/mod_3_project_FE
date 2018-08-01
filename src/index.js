@@ -14,7 +14,11 @@ function setup() {
 		horn: loadSound("assets/horn.wav"),
 		beep: loadSound("assets/musicnote1.wav"),
 		boop: loadSound("assets/musicnote6.wav"),
-		ping: loadSound("assets/musicnote5.wav")
+		ping: loadSound("assets/musicnote5.wav"),
+		rockBeat: loadSound("assets/rockBeat.wav"),
+		funkBeat: loadSound("assets/funkBeat.wav"),
+		shuffleBeat: loadSound("assets/shuffleBeat.wav"),
+		airhorn: loadSound("assets/airhorn.mp3")
 	}
 	createCanvas(0, 0);
 }
@@ -23,11 +27,12 @@ function draw() {}
 
 function clickHandler(e) {
 	// if the button is a sound
-	if (e.target.className === "sound") {
+	if (e.target.classList.contains("sound")) {
 			// if we are "recording"
 			if (recording_track > 0){
 			e.preventDefault()
 			sounds[e.target.id].play()
+			sounds[e.target.id].setVolume(0.3)
 			eventItem = e.target.id
 			eventTime = e.timeStamp
 			eventObj = {sound: eventItem, time: eventTime}
@@ -35,17 +40,22 @@ function clickHandler(e) {
 			// if not recording, just plays sound
 			} else {
 				sounds[e.target.id].play()
+				sounds[e.target.id].setVolume(0.3)
 			}
 		// if the button is "record"
-		} else if (e.target.className === "record"){
-		recording_track = parseInt(e.target.dataset.id)
-		startRecording(e.timeStamp, recording_track)
-		eventItem = 'record'
-		eventTime = e.timeStamp
-		eventObj = {sound: eventItem, time: eventTime}
-		eventArray[recording_track].push(eventObj)
+		} else if (e.target.classList.contains("record")){
+			if (e.target.innerText === "Record") {
+				recording_track = parseInt(e.target.dataset.id)
+				startRecording(e.timeStamp, recording_track)
+				eventItem = 'record'
+				eventTime = e.timeStamp
+				eventObj = {sound: eventItem, time: eventTime}
+				eventArray[recording_track].push(eventObj)
+			} else {
+				resetRec()
+			}
 		// if the button is "play"
-		} else if (e.target.className === "play"){
+		} else if (e.target.classList.contains("play")){
 		current_track = parseInt(e.target.dataset.id)
 			if (e.target.id === "play_all") {
 				// play the entire song
@@ -65,6 +75,7 @@ function keyDownHandler(e) {
 			case '1' :
 			e.preventDefault()
 			sounds['coin'].play()
+			sounds['coin'].setVolume(0.3)
 			eventItem = 'coin'
 			eventTime = e.timeStamp
 			eventObj = {sound: eventItem, time: eventTime}
@@ -73,6 +84,7 @@ function keyDownHandler(e) {
 			case '2' :
 			e.preventDefault()
 			sounds['horn'].play()
+			sounds['horn'].setVolume(0.3)
 			eventItem = 'horn'
 			eventTime = e.timeStamp
 			eventObj = {sound: eventItem, time: eventTime}
@@ -81,6 +93,7 @@ function keyDownHandler(e) {
 			case '3' :
 			e.preventDefault()
 			sounds['beep'].play()
+			sounds['beep'].setVolume(0.3)
 			eventItem = 'beep'
 			eventTime = e.timeStamp
 			eventObj = {sound: eventItem, time: eventTime}
@@ -89,6 +102,7 @@ function keyDownHandler(e) {
 			case '4' :
 			e.preventDefault()
 			sounds['boop'].play()
+			sounds['boop'].setVolume(0.3)
 			eventItem = 'boop'
 			eventTime = e.timeStamp
 			eventObj = {sound: eventItem, time: eventTime}
@@ -97,47 +111,72 @@ function keyDownHandler(e) {
 			case '5' :
 			e.preventDefault()
 			sounds['ping'].play()
+			sounds['ping'].setVolume(0.3)
 			eventItem = 'ping'
 			eventTime = e.timeStamp
 			eventObj = {sound: eventItem, time: eventTime}
 			eventArray[recording_track].push(eventObj)
+			break
+			case 'Enter' :
+			sounds['airhorn'].play()
+			sounds['airhorn'].setVolume(0.5)
 			break
 		}
 	} else {
 		switch (e.key){
 			case '1' :
 				sounds['coin'].play()
+				sounds['coin'].setVolume(0.3)
 				break
 			case '2' :
 				sounds['horn'].play()
+				sounds['horn'].setVolume(0.3)
 				break
 			case '3' :
 				sounds['beep'].play()
+				sounds['beep'].setVolume(0.3)
 				break
 			case '4' :
 				sounds['boop'].play()
+				sounds['boop'].setVolume(0.3)
 				break
 			case '5' :
 				sounds['ping'].play()
+				sounds['ping'].setVolume(0.3)
 				break
 			case "spacebar" :
+			break
+				case 'Enter' :
+			sounds['airhorn'].play()
+			sounds['airhorn'].setVolume(0.5)
+			break
 		}
 	}
 }
 
 function startRecording (timeStamp, track) {
 	eventArray[track] = []
+	let beat = document.querySelector('input[name="beat"]:checked').value
+	sounds[beat].loop()
+	sounds[beat].setVolume(4.0)
+	all_rec_btns = document.querySelectorAll('.record')
+	let play_all_button = document.querySelector('#play_all')
 	rec_start = timeStamp
 	rec_btn = document.querySelector(`#record_${track}`)
-	rec_btn.disabled = true
+	all_rec_btns.forEach (button => button.disabled = true)
+	rec_btn.disabled = false
+	play_all_button.disabled = true
 	rec_btn.innerText = "Stop"
-	setTimeout(resetRec, 5000)
 }
 
 function resetRec () {
-rec_btn.disabled = false
+all_rec_btns.forEach (button => button.disabled = false)
 rec_btn.innerText = "Record"
+let play_all_button = document.querySelector('#play_all')
+play_all_button.disabled = false
 recording_track = 0
+let beat = document.querySelector('input[name="beat"]:checked').value
+sounds[beat].stop()
 }
 
 function mapArray(track) {
@@ -163,6 +202,7 @@ function playTrack(soundTimesArray) {
 function playSound(eventSound){
 	//eventSound is undefined here
 	sounds[eventSound].play()
+	sounds[eventSound].setVolume(0.3)
 }
 
 function mergeTracks() {
