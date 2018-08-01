@@ -66,7 +66,6 @@ function clickHandler(e) {
 			if (e.target.id === "play_all") {
 				// play the entire song
 				let mergedTrack = mergeTracks()
-				debugger
 				playTrack(mergedTrack)
 			} else {
 				// play an individual track
@@ -190,12 +189,13 @@ function startRecording (timeStamp, track) {
 }
 
 function setBeat(){
-	current_beat = document.querySelector('input[name="beat"]:checked').value
+	let selected_beat = document.querySelector('#beat_dropdown')
+	current_beat = selected_beat.options[selected_beat.selectedIndex].value
 	let beat = current_beat
 	sounds[beat].loop()
 	sounds[beat].setVolume(4.0)
 	eventArray[0][0].beat = beat
-	document.getElementById('beat_selector').hidden = true
+	document.getElementById('beat_dropdown').hidden = true
 }
 
 function resetRec () {
@@ -205,7 +205,8 @@ rec_btn.innerText = "Record"
 let play_all_button = document.querySelector('#play_all')
 play_all_button.disabled = false
 recording_track = 0
-let beat = document.querySelector('input[name="beat"]:checked').value
+let selected_beat = document.querySelector('#beat_dropdown')
+let	beat = selected_beat.options[selected_beat.selectedIndex].value
 sounds[beat].stop()
 }
 
@@ -225,6 +226,7 @@ function mapArray(track) {
 
 function playTrack(soundTimesArray) {
 	soundTimesArray.shift()
+	debugger
 	stopTimeObject = soundTimesArray.pop()
 	sounds[eventArray[0][0].beat].play()
 	sounds[eventArray[0][0].beat].setVolume(4.0)
@@ -251,6 +253,7 @@ function mergeTracks() {
 	track3.shift()
 	track3Time = track3.pop()
 	allStopTimes = [track1Time, track2Time, track3Time]
+	allStopTimes = allStopTimes.filter(function(stoptime){ return stoptime != undefined })
 	sortedStopTimes = allStopTimes.sort(function(a,b) {return a.time - b.time})
 	longest = [sortedStopTimes.pop()]
 	let merger = [...track1, ...track2, ...track3]
