@@ -27,7 +27,7 @@ function draw() {}
 
 function clickHandler(e) {
 	// if the button is a sound
-	if (e.target.className === "sound") {
+	if (e.target.classList.contains("sound")) {
 			// if we are "recording"
 			if (recording_track > 0){	
 			e.preventDefault()
@@ -43,7 +43,7 @@ function clickHandler(e) {
 				sounds[e.target.id].setVolume(0.3)
 			}
 		// if the button is "record"
-		} else if (e.target.className === "record"){
+		} else if (e.target.classList.contains("record")){
 			if (e.target.innerText === "Record") {
 				recording_track = parseInt(e.target.dataset.id)
 				startRecording(e.timeStamp, recording_track)
@@ -55,7 +55,7 @@ function clickHandler(e) {
 				resetRec()
 			}
 		// if the button is "play"
-		} else if (e.target.className === "play"){
+		} else if (e.target.classList.contains("play")){
 		current_track = parseInt(e.target.dataset.id)
 			if (e.target.id === "play_all") {
 				// play the entire song
