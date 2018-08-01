@@ -262,8 +262,8 @@ function mergeTracks() {
 	return mergedWithZero
 }
 
-//Grabs the boxes that hold the Progress Bars
-
+//Grabs Main Track Play Button
+let mainPlay = document.getElementById('play_all')
 
 //Grabs all the Progress Bars
 let mainTrack = document.getElementById('mainTrack')
@@ -276,6 +276,7 @@ let recordL1 = document.getElementById('record_1')
 let recordL2 = document.getElementById('record_2')
 let recordL3 = document.getElementById('record_3')
 
+mainPlay.addEventListener('click', load_bar)
 recordL1.addEventListener('click', load_bar)
 recordL2.addEventListener('click', load_bar)
 recordL3.addEventListener('click', load_bar)
@@ -284,22 +285,54 @@ recordL3.addEventListener('click', load_bar)
 let fill = 0;
 
 
-function load_bar() {
+function load_bar(event) {
 	window.setInterval(function (){
 		fill += 10
 
-		if (fill === 100){
-			clearInterval();
+	  switch(event.target.id) {
+			case 'play_all':
+				if (fill === 100){
+					clearInterval();
+				} else {
+					mainTrack.style.width = fill + "%";
+				}
+			break
+			case 'record_1':
+				if (fill === 100){
+					clearInterval();
+				} else {
+					layerOne.style.width = fill + "%";
+				}
+			break
+			case 'record_2':
+				if (fill === 100){
+					clearInterval();
+				} else {
+					layerTwo.style.width = fill + "%";
+				}
+			break
+			case 'record_3':
+				if (fill === 100){
+					clearInterval();
+				} else {
+					layerThree.style.width = fill + "%";
+				}
+			break
 		}
-		else {
-			if (e.target.id === recordL1) {
-			layerOne.style.width = fill + "%";
-		} else if (e.target.id === recordL2) {
-			layerTwo.style.width = fill + "%";
-		} else if (e.target.id === recordL3) {
-		  layerThree.style.width = fill + "%";
-		}
-	}//closes off first if statement
+
+
+	// 	if (fill === 100){
+	// 		clearInterval();
+	// 	}
+	// 	else {
+	// 		if (event.target.id === 'record_1') {
+	// 		layerOne.style.width = fill + "%";
+	// 	} else if (event.target.id === 'record_2') {
+	// 		layerTwo.style.width = fill + "%";
+	// 	} else if (event.target.id === 'record_3') {
+	// 	  layerThree.style.width = fill + "%";
+	// 	}
+	// }//closes off first if statement
 
 	}, 500);
 }
