@@ -259,7 +259,29 @@ function mergeTracks() {
 	return mergedWithZero
 }
 
-//Controls Main Progress Bar
+//Grabs all the Progress Bar elements
+let mainTrack = document.getElementById('mainTrack')
+let layerOne = document.getElementById('layerOne')
+let layerTwo = document.getElementById('layerTwo')
+let layerThree = document.getElementById('layerThree')
+let fill = 0;
+
+
+function load_bar() {
+	window.setInterval(function (){
+		fill += 10
+
+		if (fill === 100){
+			clearInterval();
+		}
+		else {
+			trackLayer1
+		}
+
+	}, 50);
+}
+
+
 
 
 // eventArray.forEach (function (i) {
