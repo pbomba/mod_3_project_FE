@@ -3,10 +3,11 @@ document.addEventListener('click', clickHandler)
 document.addEventListener('keydown', keyDownHandler)
 
 // eventArray[0] = reserved, eventArray[1] = track 1, eventArray[2] = track 2, eventArray[3] = track 3
-let eventArray = [[], [], [], []]
+let eventArray = [[{beat: ""}], [], [], []]
 let rec_start = 0
 let recording_track = 0
 let current_track = 0
+let current_beat
 
 function setup() {
 	sounds = {
@@ -46,12 +47,17 @@ function clickHandler(e) {
 		} else if (e.target.classList.contains("record")){
 			if (e.target.innerText === "Record") {
 				recording_track = parseInt(e.target.dataset.id)
-				startRecording(e.timeStamp, recording_track)
 				eventItem = 'record'
 				eventTime = e.timeStamp
+				startRecording(e.timeStamp, recording_track)
 				eventObj = {sound: eventItem, time: eventTime}
 				eventArray[recording_track].push(eventObj)
 			} else {
+				// inner text is "stop"
+				eventItem = 'stop'
+				eventTime = e.timeStamp
+				eventObj = {sound: eventItem, time: eventTime}
+				eventArray[recording_track].push(eventObj)
 				resetRec()
 			}
 		// if the button is "play"
@@ -60,6 +66,7 @@ function clickHandler(e) {
 			if (e.target.id === "play_all") {
 				// play the entire song
 				let mergedTrack = mergeTracks()
+				debugger
 				playTrack(mergedTrack)
 			} else {
 				// play an individual track
@@ -156,21 +163,44 @@ function keyDownHandler(e) {
 
 function startRecording (timeStamp, track) {
 	eventArray[track] = []
-	let beat = document.querySelector('input[name="beat"]:checked').value
-	sounds[beat].loop()
-	sounds[beat].setVolume(4.0)
+	setBeat()
 	all_rec_btns = document.querySelectorAll('.record')
 	let play_all_button = document.querySelector('#play_all')
 	rec_start = timeStamp
 	rec_btn = document.querySelector(`#record_${track}`)
 	all_rec_btns.forEach (button => button.disabled = true)
 	rec_btn.disabled = false
+	all_rec_btns.forEach (button => button.classList.add('disabledBtn'))
+	rec_btn.classList.remove('disabledBtn')
 	play_all_button.disabled = true
 	rec_btn.innerText = "Stop"
+	// play the other 2 tracks
+	// // check to see if other tracks have music
+	disabledButtons = document.querySelectorAll('.disabledBtn')
+	oT1 = disabledButtons[0].dataset.id
+	oT2 = disabledButtons[1].dataset.id
+		if (eventArray[oT1].length > 0) {
+			sTA2 = mapArray(oT1)
+			playTrack(sTA2)
+		}
+		if (eventArray[oT2] > 0) {
+			sTA3 = mapArray(oT2)
+			playTrack(sTA3)
+		}
+}
+
+function setBeat(){
+	current_beat = document.querySelector('input[name="beat"]:checked').value
+	let beat = current_beat
+	sounds[beat].loop()
+	sounds[beat].setVolume(4.0)
+	eventArray[0][0].beat = beat
+	document.getElementById('beat_selector').hidden = true
 }
 
 function resetRec () {
 all_rec_btns.forEach (button => button.disabled = false)
+all_rec_btns.forEach (button => button.classList.remove('disabledBtn'))
 rec_btn.innerText = "Record"
 let play_all_button = document.querySelector('#play_all')
 play_all_button.disabled = false
@@ -195,6 +225,10 @@ function mapArray(track) {
 
 function playTrack(soundTimesArray) {
 	soundTimesArray.shift()
+	stopTimeObject = soundTimesArray.pop()
+	sounds[eventArray[0][0].beat].play()
+	sounds[eventArray[0][0].beat].setVolume(4.0)
+	setTimeout( () => sounds[eventArray[0][0].beat].stop(), stopTimeObject.time )
 	soundTimesArray.forEach( event => setTimeout( () => playSound(event.sound), event.time))
 	 // soundTimesArray.forEach( event => console.log(event))
 	}
@@ -206,16 +240,22 @@ function playSound(eventSound){
 }
 
 function mergeTracks() {
-	let zeroArray = [[]]
+	let zeroArray = [[{beat: current_beat}]]
 	let track1 = mapArray(1)
 	track1.shift()
+	track1Time = track1.pop()
 	let track2 = mapArray(2)
 	track2.shift()
+	track2Time = track2.pop()
 	let track3 = mapArray(3)
 	track3.shift()
+	track3Time = track3.pop()
+	allStopTimes = [track1Time, track2Time, track3Time]
+	sortedStopTimes = allStopTimes.sort(function(a,b) {return a.time - b.time})
+	longest = [sortedStopTimes.pop()]
 	let merger = [...track1, ...track2, ...track3]
 	merger.sort( (a, b) => a.time - b.time)
-	let mergedWithZero = [...zeroArray,...merger ]
+	let mergedWithZero = [...zeroArray,...merger,...longest]
 	return mergedWithZero
 }
 
