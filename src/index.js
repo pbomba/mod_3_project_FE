@@ -219,11 +219,25 @@ function mergeTracks() {
 	return mergedWithZero
 }
 
-//Grabs all the Progress Bar elements
+//Grabs the boxes that hold the Progress Bars
+
+
+//Grabs all the Progress Bars
 let mainTrack = document.getElementById('mainTrack')
 let layerOne = document.getElementById('layerOne')
 let layerTwo = document.getElementById('layerTwo')
 let layerThree = document.getElementById('layerThree')
+
+//Grabs all the Layer Record buttons
+let recordL1 = document.getElementById('record_1')
+let recordL2 = document.getElementById('record_2')
+let recordL3 = document.getElementById('record_3')
+
+recordL1.addEventListener('click', load_bar)
+recordL2.addEventListener('click', load_bar)
+recordL3.addEventListener('click', load_bar)
+
+
 let fill = 0;
 
 
@@ -235,10 +249,16 @@ function load_bar() {
 			clearInterval();
 		}
 		else {
-			trackLayer1
+			if (e.target.id === recordL1) {
+			layerOne.style.width = fill + "%";
+		} else if (e.target.id === recordL2) {
+			layerTwo.style.width = fill + "%";
+		} else if (e.target.id === recordL3) {
+		  layerThree.style.width = fill + "%";
 		}
+	}//closes off first if statement
 
-	}, 50);
+	}, 500);
 }
 
 
