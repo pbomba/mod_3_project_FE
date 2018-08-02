@@ -34,9 +34,9 @@ function clickHandler(e) {
 			e.preventDefault()
 			sounds[e.target.id].play()
 			sounds[e.target.id].setVolume(0.3)
-			eventItem = e.target.id
-			eventTime = e.timeStamp
-			eventObj = {sound: eventItem, time: eventTime}
+			let eventItem = e.target.id
+			let eventTime = e.timeStamp
+			let eventObj = {sound: eventItem, time: eventTime}
 			eventArray[recording_track].push(eventObj)
 			// if not recording, just plays sound
 			} else {
@@ -47,16 +47,16 @@ function clickHandler(e) {
 		} else if (e.target.classList.contains("record")){
 			if (e.target.innerText === "Record") {
 				recording_track = parseInt(e.target.dataset.id)
-				eventItem = 'record'
-				eventTime = e.timeStamp
+				let eventItem = 'record'
+				let eventTime = e.timeStamp
 				startRecording(e.timeStamp, recording_track)
-				eventObj = {sound: eventItem, time: eventTime}
+				let eventObj = {sound: eventItem, time: eventTime}
 				eventArray[recording_track].push(eventObj)
 			} else {
 				// inner text is "stop"
-				eventItem = 'stop'
-				eventTime = e.timeStamp
-				eventObj = {sound: eventItem, time: eventTime}
+				let eventItem = 'stop'
+				let eventTime = e.timeStamp
+				let eventObj = {sound: eventItem, time: eventTime}
 				eventArray[recording_track].push(eventObj)
 				resetRec()
 			}
@@ -72,11 +72,26 @@ function clickHandler(e) {
 			soundTimesArray = mapArray(current_track)
 			playTrack(soundTimesArray)
 			}
-	}
+		} else if (e.target.id === 'saveTrack'){
+		//requires na me of song, artist name, song data
+		fetch('http://localhost:3000/api/v1/songs', {
+			method: 'POST',
+			headers: {'Accept': 'application/json',
+      				  'Content-Type': 'application/json'},
+			body: JSON.stringify({
+				name: 'song 3',
+				song_data: JSON.stringify(eventArray),
+				artist_name: "test_name"
+			})
+		})
+		}
 }
 
 function keyDownHandler(e) {
 	if (recording_track > 0){
+		let eventItem
+		let eventTime
+		let eventObj
 		switch (e.key){
 			case '1' :
 			e.preventDefault()
@@ -164,7 +179,7 @@ function startRecording (timeStamp, track) {
 	eventArray[track] = []
 	setBeat()
 	all_rec_btns = document.querySelectorAll('.record')
-	let play_all_button = document.querySelector('#play_all')
+	play_all_button = document.querySelector('#play_all')
 	rec_start = timeStamp
 	rec_btn = document.querySelector(`#record_${track}`)
 	all_rec_btns.forEach (button => button.disabled = true)
@@ -180,11 +195,11 @@ function startRecording (timeStamp, track) {
 	oT2 = disabledButtons[1].dataset.id
 		if (eventArray[oT1].length > 0) {
 			sTA2 = mapArray(oT1)
-			playTrack(sTA2)
+			playTrackWithoutStop(sTA2)
 		}
-		if (eventArray[oT2] > 0) {
+		if (eventArray[oT2].length > 0) {
 			sTA3 = mapArray(oT2)
-			playTrack(sTA3)
+			playTrackWithoutStop(sTA3)
 		}
 }
 
@@ -199,15 +214,15 @@ function setBeat(){
 }
 
 function resetRec () {
-all_rec_btns.forEach (button => button.disabled = false)
-all_rec_btns.forEach (button => button.classList.remove('disabledBtn'))
-rec_btn.innerText = "Record"
-let play_all_button = document.querySelector('#play_all')
-play_all_button.disabled = false
-recording_track = 0
-let selected_beat = document.querySelector('#beat_dropdown')
-let	beat = selected_beat.options[selected_beat.selectedIndex].value
-sounds[beat].stop()
+	all_rec_btns.forEach (button => button.disabled = false)
+	all_rec_btns.forEach (button => button.classList.remove('disabledBtn'))
+	rec_btn.innerText = "Record"
+	let play_all_button = document.querySelector('#play_all')
+	play_all_button.disabled = false
+	recording_track = 0
+	let selected_beat = document.querySelector('#beat_dropdown')
+	let	beat = selected_beat.options[selected_beat.selectedIndex].value
+	sounds[beat].stop()
 }
 
 function mapArray(track) {
@@ -226,13 +241,19 @@ function mapArray(track) {
 
 function playTrack(soundTimesArray) {
 	soundTimesArray.shift()
-	debugger
-	stopTimeObject = soundTimesArray.pop()
+	let stopTimeObject = soundTimesArray.pop()
 	sounds[eventArray[0][0].beat].play()
 	sounds[eventArray[0][0].beat].setVolume(4.0)
 	setTimeout( () => sounds[eventArray[0][0].beat].stop(), stopTimeObject.time )
 	soundTimesArray.forEach( event => setTimeout( () => playSound(event.sound), event.time))
-	 // soundTimesArray.forEach( event => console.log(event))
+	}
+
+function playTrackWithoutStop(soundTimesArray) {
+	soundTimesArray.shift()
+	let stopTimeObject = soundTimesArray.pop()
+	sounds[eventArray[0][0].beat].play()
+	sounds[eventArray[0][0].beat].setVolume(4.0)
+	soundTimesArray.forEach( event => setTimeout( () => playSound(event.sound), event.time))
 	}
 
 function playSound(eventSound){
@@ -245,17 +266,17 @@ function mergeTracks() {
 	let zeroArray = [[{beat: current_beat}]]
 	let track1 = mapArray(1)
 	track1.shift()
-	track1Time = track1.pop()
+	track1StopTime = track1.pop()
 	let track2 = mapArray(2)
 	track2.shift()
-	track2Time = track2.pop()
+	track2StopTime = track2.pop()
 	let track3 = mapArray(3)
 	track3.shift()
-	track3Time = track3.pop()
-	allStopTimes = [track1Time, track2Time, track3Time]
+	track3StopTime = track3.pop()
+	allStopTimes = [track1StopTime, track2StopTime, track3StopTime]
 	allStopTimes = allStopTimes.filter(function(stoptime){ return stoptime != undefined })
 	sortedStopTimes = allStopTimes.sort(function(a,b) {return a.time - b.time})
-	longest = [sortedStopTimes.pop()]
+	longest = [sortedStopTimes[sortedStopTimes.length -1]]
 	let merger = [...track1, ...track2, ...track3]
 	merger.sort( (a, b) => a.time - b.time)
 	let mergedWithZero = [...zeroArray,...merger,...longest]
@@ -284,7 +305,9 @@ function load_bar() {
 	}, 50);
 }
 
-
+// function saveSong() {
+// 	fetch()
+// }
 
 
 // eventArray.forEach (function (i) {
