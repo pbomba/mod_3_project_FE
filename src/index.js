@@ -46,6 +46,7 @@ function clickHandler(e) {
 		// if the button is "record"
 		} else if (e.target.classList.contains("record")){
 			if (e.target.innerText === "Record") {
+				loadBar(e)
 				recording_track = parseInt(e.target.dataset.id)
 				eventItem = 'record'
 				eventTime = e.timeStamp
@@ -66,6 +67,7 @@ function clickHandler(e) {
 			if (e.target.id === "play_all") {
 				// play the entire song
 				let mergedTrack = mergeTracks()
+				loadBar(e)
 				playTrack(mergedTrack)
 			} else {
 				// play an individual track
@@ -208,6 +210,7 @@ recording_track = 0
 let selected_beat = document.querySelector('#beat_dropdown')
 let	beat = selected_beat.options[selected_beat.selectedIndex].value
 sounds[beat].stop()
+clearInterval(intervalID)
 }
 
 function mapArray(track) {
@@ -226,11 +229,13 @@ function mapArray(track) {
 
 function playTrack(soundTimesArray) {
 	soundTimesArray.shift()
-	debugger
 	stopTimeObject = soundTimesArray.pop()
 	sounds[eventArray[0][0].beat].play()
 	sounds[eventArray[0][0].beat].setVolume(4.0)
-	setTimeout( () => sounds[eventArray[0][0].beat].stop(), stopTimeObject.time )
+	setTimeout(() => {
+		sounds[eventArray[0][0].beat].stop()
+		clearInterval(intervalID)
+	}, stopTimeObject.time )
 	soundTimesArray.forEach( event => setTimeout( () => playSound(event.sound), event.time))
 	 // soundTimesArray.forEach( event => console.log(event))
 	}
@@ -276,66 +281,42 @@ let recordL1 = document.getElementById('record_1')
 let recordL2 = document.getElementById('record_2')
 let recordL3 = document.getElementById('record_3')
 
-mainPlay.addEventListener('click', load_bar)
-recordL1.addEventListener('click', load_bar)
-recordL2.addEventListener('click', load_bar)
-recordL3.addEventListener('click', load_bar)
+// mainPlay.addEventListener('click', load_bar)
+// recordL1.addEventListener('click', load_bar)
+// recordL2.addEventListener('click', load_bar)
+// recordL3.addEventListener('click', load_bar)
 
 
-let fill = 0;
+let intervalID;
 
 
-function load_bar(event) {
-	window.setInterval(function (){
-		fill += 10
+function loadBar(event) {
+	let fill = 0;
+	intervalID = window.setInterval(function (){
+
+		if (fill === 100){
+			fill = 0;
+		} else {
+			fill += 5
+		}
 
 	  switch(event.target.id) {
 			case 'play_all':
-				if (fill === 100){
-					clearInterval();
-				} else {
-					mainTrack.style.width = fill + "%";
-				}
+				mainTrack.style.width = fill + "%";
 			break
 			case 'record_1':
-				if (fill === 100){
-					clearInterval();
-				} else {
-					layerOne.style.width = fill + "%";
-				}
+				layerOne.style.width = fill + "%";
 			break
 			case 'record_2':
-				if (fill === 100){
-					clearInterval();
-				} else {
-					layerTwo.style.width = fill + "%";
-				}
+				layerTwo.style.width = fill + "%";
 			break
 			case 'record_3':
-				if (fill === 100){
-					clearInterval();
-				} else {
-					layerThree.style.width = fill + "%";
-				}
+				layerThree.style.width = fill + "%";
 			break
 		}
-
-
-	// 	if (fill === 100){
-	// 		clearInterval();
-	// 	}
-	// 	else {
-	// 		if (event.target.id === 'record_1') {
-	// 		layerOne.style.width = fill + "%";
-	// 	} else if (event.target.id === 'record_2') {
-	// 		layerTwo.style.width = fill + "%";
-	// 	} else if (event.target.id === 'record_3') {
-	// 	  layerThree.style.width = fill + "%";
-	// 	}
-	// }//closes off first if statement
-
 	}, 500);
 }
+
 
 
 
