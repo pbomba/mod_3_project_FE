@@ -8,6 +8,8 @@ let pulloutTab = document.querySelector('.pullout-tab')
 pulloutTab.addEventListener('click', showGallery)
 closeBar.addEventListener('click', closeGallery)
 
+let submitSong = document.querySelector('#submit');
+
 // eventArray[0] = reserved, eventArray[1] = track 1, eventArray[2] = track 2, eventArray[3] = track 3
 let eventArray = [[{beat: ""}], [], [], []]
 let rec_start = 0
@@ -80,19 +82,27 @@ function clickHandler(e) {
 			soundTimesArray = mapArray(current_track)
 			playTrack(soundTimesArray)
 			}
-		} else if (e.target.id === 'saveTrack'){
+		} else if (e.target.id === 'submit'){
 		//requires na me of song, artist name, song data
+		let artistName = document.querySelector('#artistName').value;
+		let songTitle = document.querySelector('#songTitle').value;
 		fetch('http://localhost:3000/api/v1/songs', {
 			method: 'POST',
 			headers: {'Accept': 'application/json',
       				  'Content-Type': 'application/json'},
 			body: JSON.stringify({
-				name: 'song 3',
+				name: `${songTitle}`,
 				song_data: JSON.stringify(eventArray),
-				artist_name: "test_name"
+				artist_name: `${artistName}`
 			})
 		})
-		}
+
+   let modalClose = document.querySelector('#modalClose');
+   document.getElementById('modalClose').click();
+
+
+
+	} //ends Else
 }
 
 function keyDownHandler(e) {
@@ -359,4 +369,10 @@ function closeGallery(event) {
 }
 
 //Grabs Save Button
-let saveTrack = document.querySelector('#saveTrack')
+// let saveTrack = document.querySelector('#saveTrack')
+//
+// submitSong.addEventListener('click', handleSong)
+//
+// function handleSong() {
+//
+// }
