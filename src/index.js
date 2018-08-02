@@ -339,6 +339,7 @@ let pulloutTab = document.querySelector('.pullout-tab')
 pulloutTab.addEventListener('click', showGallery)
 // pulloutTab.innerText.addEventListener('click', showGallery)
 
+//Opens gallery tab
 function showGallery(event) {
   let sidebar = document.getElementById('sidebar')
 	  if (sidebar.style.display === "none") {
@@ -350,13 +351,17 @@ function showGallery(event) {
 		}
 }
 
-//Grabs X of Open sidebar
+//Grabs X of open Sidebar
 let closeBar = document.querySelector('#closeBar')
 
 closeBar.addEventListener('click', closeGallery)
 
+//Closes gallery tab
 function closeGallery(event) {
   let sidebar = document.getElementById('sidebar')
 	sidebar.style.display = "none";
 	pulloutTab.style.display = "block";
 }
+
+//Grabs Save Button
+let saveTrack = document.querySelector('#saveTrack')
