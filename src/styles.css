@@ -6,6 +6,56 @@ body {
   background-color: #221e15
 }
 
+.sidebar {
+  display: none;
+  text-align: center;
+  background-color: #221e15;
+  height: 100%;
+  position: fixed;
+  left: 5px;
+  width: 250px;
+  z-index: 1;
+  top: 0;
+  z-index: 1000;
+  animation-name: sidebar;
+  animation-duration: 0.5s;
+
+}
+
+@keyframes sidebar {
+  0% {
+      transform: translate3d(-250px, 0, 0);
+  }
+  100% {
+      transform: translate3d(0px, 0, 0);
+  }
+}
+
+.pullout-tab {
+  /* display: none; */
+  background-color: #dc3545;
+  text-align: center;
+  padding: 10px;
+  height: 50px;
+  width: 125px;
+  position: fixed;
+  left: -40px;
+  cursor: pointer;
+  -webkit-transform: rotate(270deg);
+  -moz-transform: rotate(270deg);
+  -o-transform: rotate(270deg);
+  -ms-transform: rotate(270deg);
+  transform: rotate(270deg);
+
+}
+
+#songList {
+  font-family: 'Overpass', sans-serif!important;
+  color: #fff;
+  position: relative;
+  top: 10px;
+}
+
 #welcome {
   font-family: 'Permanent Marker', cursive;
   font-size: 5em;
@@ -42,14 +92,12 @@ body {
   margin-bottom: 10px;
 }
 
-
-
 .tracker {
   margin-left: 100px;
 }
 
 .tracks {
-  margin-left: 100px;
+  margin-left: 200px;
 }
 
 h5 {

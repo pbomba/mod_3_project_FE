@@ -11,15 +11,30 @@
 
   <body style="background-color: #221e15;">
 
-    <div class="container-fluid" id="content" >
+
+    <div class="container-fluid">
 
         <div class="complete_track pt-3 pb-5" align="center">
           <h1 id="welcome">Remixer</h1>
           <p id="intro"> Make your own song! <br/> Pick a beat. Hit record and add your instruments. </p>
         </div>
 
+        <div class="pullout-tab">
+           <p>Song Gallery</p>
+        </div>
+
+        <div class="sidebar" id="sidebar">
+          <div id="songList">
+             <h3>Song Gallery</h3>
+             <br>
+             <h4>Name</h4>
+             <p>Song Name || Listen</p>
+          </div>
+        </div>
+
 
         <div class="beat_selector pb-3" align="center">
+          <h5>Select Your Beat:</h5>
           <select class="btn btn-lg btn-danger" id='beat_dropdown'>
             <option name='beat' value="rockBeat">Rock Beat</option>
             <option name='beat' value="funkBeat">Funk Beat</option>

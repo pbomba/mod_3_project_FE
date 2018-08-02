@@ -281,12 +281,6 @@ let recordL1 = document.getElementById('record_1')
 let recordL2 = document.getElementById('record_2')
 let recordL3 = document.getElementById('record_3')
 
-// mainPlay.addEventListener('click', load_bar)
-// recordL1.addEventListener('click', load_bar)
-// recordL2.addEventListener('click', load_bar)
-// recordL3.addEventListener('click', load_bar)
-
-
 let intervalID;
 
 
@@ -317,10 +311,4 @@ function loadBar(event) {
 	}, 500);
 }
 
-
-
-
-
-// eventArray.forEach (function (i) {
-// 	console.log(Object.keys(i))
-// })
+//Grabs Button Element
