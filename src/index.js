@@ -231,6 +231,7 @@ function resetRec () {
 	let selected_beat = document.querySelector('#beat_dropdown')
 	let	beat = selected_beat.options[selected_beat.selectedIndex].value
 	sounds[beat].stop()
+	clearInterval(intervalID)
 }
 
 function mapArray(track) {
