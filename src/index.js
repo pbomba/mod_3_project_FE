@@ -2,6 +2,12 @@ hello = document.querySelector("#hello")
 document.addEventListener('click', clickHandler)
 document.addEventListener('keydown', keyDownHandler)
 
+let closeBar = document.querySelector('#closeBar')
+let pulloutTab = document.querySelector('.pullout-tab')
+
+pulloutTab.addEventListener('click', showGallery)
+closeBar.addEventListener('click', closeGallery)
+
 // eventArray[0] = reserved, eventArray[1] = track 1, eventArray[2] = track 2, eventArray[3] = track 3
 let eventArray = [[{beat: ""}], [], [], []]
 let rec_start = 0
@@ -225,6 +231,7 @@ function resetRec () {
 	let selected_beat = document.querySelector('#beat_dropdown')
 	let	beat = selected_beat.options[selected_beat.selectedIndex].value
 	sounds[beat].stop()
+	clearInterval(intervalID)
 }
 
 function mapArray(track) {
@@ -332,13 +339,6 @@ function loadBar(event) {
 	}, 500);
 }
 
-//Gets Pullout Tab
-let pulloutTab = document.querySelector('.pullout-tab')
-
-//When Pullout Tab is hit
-pulloutTab.addEventListener('click', showGallery)
-// pulloutTab.innerText.addEventListener('click', showGallery)
-
 //Opens gallery tab
 function showGallery(event) {
   let sidebar = document.getElementById('sidebar')
@@ -350,11 +350,6 @@ function showGallery(event) {
 			pulloutTab.style.display = "block";
 		}
 }
-
-//Grabs X of open Sidebar
-let closeBar = document.querySelector('#closeBar')
-
-closeBar.addEventListener('click', closeGallery)
 
 //Closes gallery tab
 function closeGallery(event) {
