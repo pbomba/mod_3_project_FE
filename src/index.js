@@ -2,6 +2,12 @@ hello = document.querySelector("#hello")
 document.addEventListener('click', clickHandler)
 document.addEventListener('keydown', keyDownHandler)
 
+let closeBar = document.querySelector('#closeBar')
+let pulloutTab = document.querySelector('.pullout-tab')
+
+pulloutTab.addEventListener('click', showGallery)
+closeBar.addEventListener('click', closeGallery)
+
 // eventArray[0] = reserved, eventArray[1] = track 1, eventArray[2] = track 2, eventArray[3] = track 3
 let eventArray = [[{beat: ""}], [], [], []]
 let rec_start = 0
@@ -333,10 +339,7 @@ function loadBar(event) {
 }
 
 //Gets Pullout Tab
-let pulloutTab = document.querySelector('.pullout-tab')
 
-//When Pullout Tab is hit
-pulloutTab.addEventListener('click', showGallery)
 // pulloutTab.innerText.addEventListener('click', showGallery)
 
 function showGallery(event) {
@@ -351,9 +354,7 @@ function showGallery(event) {
 }
 
 //Grabs X of Open sidebar
-let closeBar = document.querySelector('#closeBar')
 
-closeBar.addEventListener('click', closeGallery)
 
 function closeGallery(event) {
   let sidebar = document.getElementById('sidebar')
