@@ -46,6 +46,7 @@ function clickHandler(e) {
 		// if the button is "record"
 		} else if (e.target.classList.contains("record")){
 			if (e.target.innerText === "Record") {
+				loadBar(e)
 				recording_track = parseInt(e.target.dataset.id)
 				let eventItem = 'record'
 				let eventTime = e.timeStamp
@@ -66,6 +67,7 @@ function clickHandler(e) {
 			if (e.target.id === "play_all") {
 				// play the entire song
 				let mergedTrack = mergeTracks()
+				loadBar(e)
 				playTrack(mergedTrack)
 			} else {
 				// play an individual track
@@ -244,7 +246,10 @@ function playTrack(soundTimesArray) {
 	let stopTimeObject = soundTimesArray.pop()
 	sounds[eventArray[0][0].beat].play()
 	sounds[eventArray[0][0].beat].setVolume(4.0)
-	setTimeout( () => sounds[eventArray[0][0].beat].stop(), stopTimeObject.time )
+	setTimeout(() => {
+		sounds[eventArray[0][0].beat].stop()
+		clearInterval(intervalID)
+	}, stopTimeObject.time )
 	soundTimesArray.forEach( event => setTimeout( () => playSound(event.sound), event.time))
 	}
 
@@ -283,31 +288,60 @@ function mergeTracks() {
 	return mergedWithZero
 }
 
-//Grabs all the Progress Bar elements
+//Grabs Main Track Play Button
+let mainPlay = document.getElementById('play_all')
+
+//Grabs all the Progress Bars
 let mainTrack = document.getElementById('mainTrack')
 let layerOne = document.getElementById('layerOne')
 let layerTwo = document.getElementById('layerTwo')
 let layerThree = document.getElementById('layerThree')
-let fill = 0;
+
+//Grabs all the Layer Record buttons
+let recordL1 = document.getElementById('record_1')
+let recordL2 = document.getElementById('record_2')
+let recordL3 = document.getElementById('record_3')
+
+// mainPlay.addEventListener('click', load_bar)
+// recordL1.addEventListener('click', load_bar)
+// recordL2.addEventListener('click', load_bar)
+// recordL3.addEventListener('click', load_bar)
 
 
-function load_bar() {
-	window.setInterval(function (){
-		fill += 10
+let intervalID;
+
+
+function loadBar(event) {
+	let fill = 0;
+	intervalID = window.setInterval(function (){
 
 		if (fill === 100){
-			clearInterval();
-		}
-		else {
-			trackLayer1
+			fill = 0;
+		} else {
+			fill += 5
 		}
 
-	}, 50);
+	  switch(event.target.id) {
+			case 'play_all':
+				mainTrack.style.width = fill + "%";
+			break
+			case 'record_1':
+				layerOne.style.width = fill + "%";
+			break
+			case 'record_2':
+				layerTwo.style.width = fill + "%";
+			break
+			case 'record_3':
+				layerThree.style.width = fill + "%";
+			break
+		}
+	}, 500);
 }
 
 // function saveSong() {
 // 	fetch()
 // }
+
 
 
 // eventArray.forEach (function (i) {
