@@ -22,6 +22,12 @@ body {
 
 }
 
+#closeBar {
+  position: relative;
+  top: 5px;
+  left: 100px;
+}
+
 @keyframes sidebar {
   0% {
       transform: translate3d(-250px, 0, 0);
@@ -32,7 +38,6 @@ body {
 }
 
 .pullout-tab {
-  /* display: none; */
   background-color: #dc3545;
   text-align: center;
   padding: 10px;

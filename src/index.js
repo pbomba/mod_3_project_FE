@@ -331,3 +331,32 @@ function loadBar(event) {
 		}
 	}, 500);
 }
+
+//Gets Pullout Tab
+let pulloutTab = document.querySelector('.pullout-tab')
+
+//When Pullout Tab is hit
+pulloutTab.addEventListener('click', showGallery)
+// pulloutTab.innerText.addEventListener('click', showGallery)
+
+function showGallery(event) {
+  let sidebar = document.getElementById('sidebar')
+	  if (sidebar.style.display === "none") {
+			sidebar.style.display = "block";
+			pulloutTab.style.display = "none";
+		} else {
+			sidebar.style.display = "none";
+			pulloutTab.style.display = "block";
+		}
+}
+
+//Grabs X of Open sidebar
+let closeBar = document.querySelector('#closeBar')
+
+closeBar.addEventListener('click', closeGallery)
+
+function closeGallery(event) {
+  let sidebar = document.getElementById('sidebar')
+	sidebar.style.display = "none";
+	pulloutTab.style.display = "block";
+}
