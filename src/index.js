@@ -65,7 +65,7 @@ function addToList(songs){
 function makeTemplate(song){
 	songData.push(song['attributes']['song-data'])
 	document.querySelector('.song-list').innerHTML += `<li>${song.attributes.name} ||
-	<button class="btn btn-danger play-button" id="${song.id}">PLAY</button></li><br/>`
+	<a class="play-button" id="${song.id}" href="#">PLAY</a></li><br/>`
 }
 
 function clickHandler(e) {
@@ -614,12 +614,3 @@ function closeGallery(event) {
 	sidebar.style.display = "none";
 	pulloutTab.style.display = "block";
 }
-
-//Grabs Save Button
-// let saveTrack = document.querySelector('#saveTrack')
-//
-// submitSong.addEventListener('click', handleSong)
-//
-// function handleSong() {
-//
-// }

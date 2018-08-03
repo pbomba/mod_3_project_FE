@@ -43,6 +43,7 @@ body {
 
 .pullout-tab {
   background-color: #dc3545;
+  color: #fff;
   text-align: center;
   padding: 10px;
   height: 50px;
@@ -50,6 +51,7 @@ body {
   position: fixed;
   left: -40px;
   cursor: pointer;
+  border-radius: 5px;
   -webkit-transform: rotate(270deg);
   -moz-transform: rotate(270deg);
   -o-transform: rotate(270deg);
@@ -63,6 +65,10 @@ body {
   color: #fff;
   position: relative;
   top: 10px;
+}
+
+#songList a {
+  color: #dc3545;
 }
 
 #welcome {
