@@ -382,11 +382,11 @@ function keyDownHandler(e) {
 			case 'r' :
 				sounds['synthF'].play()
 				sounds['synthF'].setVolume(0.3)
-				break	
+				break
 			case 't' :
 				sounds['synthG'].play()
 				sounds['synthG'].setVolume(0.3)
-				break	
+				break
 			case 'y' :
 				sounds['synthA'].play()
 				sounds['synthA'].setVolume(0.3)
@@ -394,7 +394,7 @@ function keyDownHandler(e) {
 			case 'u' :
 				sounds['synthB'].play()
 				sounds['synthB'].setVolume(0.3)
-				break	
+				break
 			case 'i' :
 				sounds['synthC2'].play()
 				sounds['synthC2'].setVolume(0.3)
@@ -414,11 +414,11 @@ function keyDownHandler(e) {
 			case 'f' :
 				sounds['catF'].play()
 				sounds['catF'].setVolume(0.3)
-				break	
+				break
 			case 'g' :
 				sounds['catG'].play()
 				sounds['catG'].setVolume(0.3)
-				break	
+				break
 			case 'h' :
 				sounds['catA'].play()
 				sounds['catA'].setVolume(0.3)
@@ -426,11 +426,11 @@ function keyDownHandler(e) {
 			case 'j' :
 				sounds['catB'].play()
 				sounds['catB'].setVolume(0.3)
-				break	
+				break
 			case 'k' :
 				sounds['catC2'].play()
 				sounds['catC2'].setVolume(0.3)
-				break				
+				break
 			// case "spacebar" :
 
 			case 'Enter' :
