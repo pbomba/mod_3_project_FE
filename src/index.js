@@ -7,6 +7,7 @@ let pulloutTab = document.querySelector('.pullout-tab')
 
 pulloutTab.addEventListener('click', showGallery)
 closeBar.addEventListener('click', closeGallery)
+document.addEventListener('DOMContentLoaded', getSongs)
 
 // eventArray[0] = reserved, eventArray[1] = track 1, eventArray[2] = track 2, eventArray[3] = track 3
 let eventArray = [[{beat: ""}], [], [], []]
@@ -14,23 +15,56 @@ let rec_start = 0
 let recording_track = 0
 let current_track = 0
 let current_beat
+let songData = [[]]
+
 
 function setup() {
 	sounds = {
 		coin: loadSound("assets/coin.wav"),
 		horn: loadSound("assets/horn.wav"),
-		beep: loadSound("assets/musicnote1.wav"),
+		beep: loadSound("assets/musicnote4.wav"),
 		boop: loadSound("assets/musicnote6.wav"),
 		ping: loadSound("assets/musicnote5.wav"),
 		rockBeat: loadSound("assets/rockBeat.wav"),
 		funkBeat: loadSound("assets/funkBeat.wav"),
 		shuffleBeat: loadSound("assets/shuffleBeat.wav"),
-		airhorn: loadSound("assets/airhorn.mp3")
+		airhorn: loadSound("assets/airhorn.mp3"),
+		synthC: loadSound("assets/musicnote1C.wav"),
+		synthD: loadSound("assets/musicnote1D.wav"),
+		synthE: loadSound("assets/musicnote1E.wav"),
+		synthF: loadSound("assets/musicnote1F.wav"),
+		synthG: loadSound("assets/musicnote1G.wav"),
+		synthA: loadSound("assets/musicnote1A.wav"),
+		synthB: loadSound("assets/musicnote1B.wav"),
+		synthC2: loadSound("assets/musicnote1C2.wav"),
+		catC: loadSound("assets/catC.wav"),
+		catD: loadSound("assets/catD.wav"),
+		catE: loadSound("assets/catE.wav"),
+		catF: loadSound("assets/catF.wav"),
+		catG: loadSound("assets/catG.wav"),
+		catA: loadSound("assets/catA.wav"),
+		catB: loadSound("assets/catB.wav"),
+		catC2: loadSound("assets/catC2.wav")
 	}
 	createCanvas(0, 0);
 }
 
 function draw() {}
+
+function getSongs(){
+	fetch('http://localhost:3000/api/v1/songs').then(res => res.json())
+	.then(songs => addToList(songs))
+}
+
+function addToList(songs){
+	songs.data.forEach(song => makeTemplate(song))
+}
+
+function makeTemplate(song){
+	songData.push(song['attributes']['song-data'])
+	document.querySelector('.song-list').innerHTML += `<li>${song.attributes.name}
+	<button class="play-button" id="${song.id}">PLAY</button></li>`
+}
 
 function clickHandler(e) {
 	// if the button is a sound
@@ -92,7 +126,13 @@ function clickHandler(e) {
 				artist_name: "test_name"
 			})
 		})
-		}
+		} else if (e.target.className === 'play-button'){
+		let id = e.target.id
+		eventArray = songData[id]
+		eventArray = JSON.parse(eventArray)
+		let track = mergeTracks()
+		playTrack(track)
+	}
 }
 
 function keyDownHandler(e) {
@@ -146,6 +186,150 @@ function keyDownHandler(e) {
 			eventObj = {sound: eventItem, time: eventTime}
 			eventArray[recording_track].push(eventObj)
 			break
+			case 'q' :
+			e.preventDefault()
+			sounds['synthC'].play()
+			sounds['synthC'].setVolume(0.3)
+			eventItem = 'synthC'
+			eventTime = e.timeStamp
+			eventObj = {sound: eventItem, time: eventTime}
+			eventArray[recording_track].push(eventObj)
+			break
+			case 'w' :
+			e.preventDefault()
+			sounds['synthD'].play()
+			sounds['synthD'].setVolume(0.3)
+			eventItem = 'synthD'
+			eventTime = e.timeStamp
+			eventObj = {sound: eventItem, time: eventTime}
+			eventArray[recording_track].push(eventObj)
+			break
+			case 'e' :
+			e.preventDefault()
+			sounds['synthE'].play()
+			sounds['synthE'].setVolume(0.3)
+			eventItem = 'synthE'
+			eventTime = e.timeStamp
+			eventObj = {sound: eventItem, time: eventTime}
+			eventArray[recording_track].push(eventObj)
+			break
+			case 'r' :
+			e.preventDefault()
+			sounds['synthF'].play()
+			sounds['synthF'].setVolume(0.3)
+			eventItem = 'synthF'
+			eventTime = e.timeStamp
+			eventObj = {sound: eventItem, time: eventTime}
+			eventArray[recording_track].push(eventObj)
+			break	
+			case 't' :
+			e.preventDefault()
+			sounds['synthG'].play()
+			sounds['synthG'].setVolume(0.3)
+			eventItem = 'synthG'
+			eventTime = e.timeStamp
+			eventObj = {sound: eventItem, time: eventTime}
+			eventArray[recording_track].push(eventObj)
+			break	
+			case 'y' :
+			e.preventDefault()
+			sounds['synthA'].play()
+			sounds['synthA'].setVolume(0.3)
+			eventItem = 'synthA'
+			eventTime = e.timeStamp
+			eventObj = {sound: eventItem, time: eventTime}
+			eventArray[recording_track].push(eventObj)
+			break
+			case 'u' :
+			e.preventDefault()
+			sounds['synthB'].play()
+			sounds['synthB'].setVolume(0.3)
+			eventItem = 'synthB'
+			eventTime = e.timeStamp
+			eventObj = {sound: eventItem, time: eventTime}
+			eventArray[recording_track].push(eventObj)
+			break
+			case 'i' :
+			e.preventDefault()
+			sounds['synthC2'].play()
+			sounds['synthC2'].setVolume(0.3)
+			eventItem = 'synthC2'
+			eventTime = e.timeStamp
+			eventObj = {sound: eventItem, time: eventTime}
+			eventArray[recording_track].push(eventObj)
+			break
+			case 'a' :
+			e.preventDefault()
+			sounds['catC'].play()
+			sounds['catC'].setVolume(0.3)
+			eventItem = 'catC'
+			eventTime = e.timeStamp
+			eventObj = {sound: eventItem, time: eventTime}
+			eventArray[recording_track].push(eventObj)
+			break
+			case 's' :
+			e.preventDefault()
+			sounds['catD'].play()
+			sounds['catD'].setVolume(0.3)
+			eventItem = 'catD'
+			eventTime = e.timeStamp
+			eventObj = {sound: eventItem, time: eventTime}
+			eventArray[recording_track].push(eventObj)
+			break
+			case 'd' :
+			e.preventDefault()
+			sounds['catE'].play()
+			sounds['catE'].setVolume(0.3)
+			eventItem = 'catE'
+			eventTime = e.timeStamp
+			eventObj = {sound: eventItem, time: eventTime}
+			eventArray[recording_track].push(eventObj)
+			break
+			case 'f' :
+			e.preventDefault()
+			sounds['catF'].play()
+			sounds['catF'].setVolume(0.3)
+			eventItem = 'catF'
+			eventTime = e.timeStamp
+			eventObj = {sound: eventItem, time: eventTime}
+			eventArray[recording_track].push(eventObj)
+			break	
+			case 'g' :
+			e.preventDefault()
+			sounds['catG'].play()
+			sounds['catG'].setVolume(0.3)
+			eventItem = 'catG'
+			eventTime = e.timeStamp
+			eventObj = {sound: eventItem, time: eventTime}
+			eventArray[recording_track].push(eventObj)
+			break	
+			case 'h' :
+			e.preventDefault()
+			sounds['catA'].play()
+			sounds['catA'].setVolume(0.3)
+			eventItem = 'catA'
+			eventTime = e.timeStamp
+			eventObj = {sound: eventItem, time: eventTime}
+			eventArray[recording_track].push(eventObj)
+			break
+			case 'j' :
+			e.preventDefault()
+			sounds['catB'].play()
+			sounds['catB'].setVolume(0.3)
+			eventItem = 'catB'
+			eventTime = e.timeStamp
+			eventObj = {sound: eventItem, time: eventTime}
+			eventArray[recording_track].push(eventObj)
+			break
+			case 'k' :
+			e.preventDefault()
+			sounds['catC2'].play()
+			sounds['catC2'].setVolume(0.3)
+			eventItem = 'catC2'
+			eventTime = e.timeStamp
+			eventObj = {sound: eventItem, time: eventTime}
+			eventArray[recording_track].push(eventObj)
+			break										
 			case 'Enter' :
 			sounds['airhorn'].play()
 			sounds['airhorn'].setVolume(0.5)
@@ -173,11 +357,78 @@ function keyDownHandler(e) {
 				sounds['ping'].play()
 				sounds['ping'].setVolume(0.3)
 				break
-			case "spacebar" :
+			case 'q' :
+			sounds['synthC'].play()
+			sounds['synthC'].setVolume(0.3)
 			break
-				case 'Enter' :
+			case 'w' :
+			sounds['synthD'].play()
+			sounds['synthD'].setVolume(0.3)
+			break
+			case 'e' :
+			sounds['synthE'].play()
+			sounds['synthE'].setVolume(0.3)
+			break
+			case 'r' :
+			sounds['synthF'].play()
+			sounds['synthF'].setVolume(0.3)
+			break	
+			case 't' :
+			sounds['synthG'].play()
+			sounds['synthG'].setVolume(0.3)
+			break	
+			case 'y' :
+			sounds['synthA'].play()
+			sounds['synthA'].setVolume(0.3)
+			break
+			case 'u' :
+			sounds['synthB'].play()
+			sounds['synthB'].setVolume(0.3)
+			break	
+			case 'i' :
+			sounds['synthC2'].play()
+			sounds['synthC2'].setVolume(0.3)
+			break
+			case 'a' :
+			sounds['catC'].play()
+			sounds['catC'].setVolume(0.3)
+			break
+			case 's' :
+			sounds['catD'].play()
+			sounds['catD'].setVolume(0.3)
+			break
+			case 'd' :
+			sounds['catE'].play()
+			sounds['catE'].setVolume(0.3)
+			break
+			case 'f' :
+			sounds['catF'].play()
+			sounds['catF'].setVolume(0.3)
+			break	
+			case 'g' :
+			sounds['catG'].play()
+			sounds['catG'].setVolume(0.3)
+			break	
+			case 'h' :
+			sounds['catA'].play()
+			sounds['catA'].setVolume(0.3)
+			break
+			case 'j' :
+			sounds['catB'].play()
+			sounds['catB'].setVolume(0.3)
+			break	
+			case 'k' :
+			sounds['catC2'].play()
+			sounds['catC2'].setVolume(0.3)
+			break				
+			// case "spacebar" :
+
+			case 'Enter' :
 			sounds['airhorn'].play()
 			sounds['airhorn'].setVolume(0.5)
+
+			// sounds['airhorn'].play()
+			// sounds['airhorn'].setVolume(0.5)
 			break
 		}
 	}

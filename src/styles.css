@@ -19,7 +19,10 @@ body {
   z-index: 1000;
   animation-name: sidebar;
   animation-duration: 0.5s;
+}
 
+.song-list{
+	text-align: left;
 }
 
 #closeBar {
