@@ -64,8 +64,8 @@ function addToList(songs){
 
 function makeTemplate(song){
 	songData.push(song['attributes']['song-data'])
-	document.querySelector('.song-list').innerHTML += `<li>${song.attributes.name}
-	<button class="play-button" id="${song.id}">PLAY</button></li>`
+	document.querySelector('.song-list').innerHTML += `<li>${song.attributes.name} ||
+	<button class="btn btn-danger play-button" id="${song.id}">PLAY</button></li><br/>`
 }
 
 function clickHandler(e) {
@@ -227,7 +227,7 @@ function keyDownHandler(e) {
 			eventTime = e.timeStamp
 			eventObj = {sound: eventItem, time: eventTime}
 			eventArray[recording_track].push(eventObj)
-			break	
+			break
 			case 't' :
 			e.preventDefault()
 			sounds['synthG'].play()
@@ -236,7 +236,7 @@ function keyDownHandler(e) {
 			eventTime = e.timeStamp
 			eventObj = {sound: eventItem, time: eventTime}
 			eventArray[recording_track].push(eventObj)
-			break	
+			break
 			case 'y' :
 			e.preventDefault()
 			sounds['synthA'].play()
@@ -299,7 +299,7 @@ function keyDownHandler(e) {
 			eventTime = e.timeStamp
 			eventObj = {sound: eventItem, time: eventTime}
 			eventArray[recording_track].push(eventObj)
-			break	
+			break
 			case 'g' :
 			e.preventDefault()
 			sounds['catG'].play()
@@ -308,7 +308,7 @@ function keyDownHandler(e) {
 			eventTime = e.timeStamp
 			eventObj = {sound: eventItem, time: eventTime}
 			eventArray[recording_track].push(eventObj)
-			break	
+			break
 			case 'h' :
 			e.preventDefault()
 			sounds['catA'].play()
@@ -335,7 +335,7 @@ function keyDownHandler(e) {
 			eventTime = e.timeStamp
 			eventObj = {sound: eventItem, time: eventTime}
 			eventArray[recording_track].push(eventObj)
-			break										
+			break
 			case 'Enter' :
 			sounds['airhorn'].play()
 			sounds['airhorn'].setVolume(0.5)
@@ -378,11 +378,11 @@ function keyDownHandler(e) {
 			case 'r' :
 			sounds['synthF'].play()
 			sounds['synthF'].setVolume(0.3)
-			break	
+			break
 			case 't' :
 			sounds['synthG'].play()
 			sounds['synthG'].setVolume(0.3)
-			break	
+			break
 			case 'y' :
 			sounds['synthA'].play()
 			sounds['synthA'].setVolume(0.3)
@@ -390,7 +390,7 @@ function keyDownHandler(e) {
 			case 'u' :
 			sounds['synthB'].play()
 			sounds['synthB'].setVolume(0.3)
-			break	
+			break
 			case 'i' :
 			sounds['synthC2'].play()
 			sounds['synthC2'].setVolume(0.3)
@@ -410,11 +410,11 @@ function keyDownHandler(e) {
 			case 'f' :
 			sounds['catF'].play()
 			sounds['catF'].setVolume(0.3)
-			break	
+			break
 			case 'g' :
 			sounds['catG'].play()
 			sounds['catG'].setVolume(0.3)
-			break	
+			break
 			case 'h' :
 			sounds['catA'].play()
 			sounds['catA'].setVolume(0.3)
@@ -422,11 +422,11 @@ function keyDownHandler(e) {
 			case 'j' :
 			sounds['catB'].play()
 			sounds['catB'].setVolume(0.3)
-			break	
+			break
 			case 'k' :
 			sounds['catC2'].play()
 			sounds['catC2'].setVolume(0.3)
-			break				
+			break
 			// case "spacebar" :
 
 			case 'Enter' :
