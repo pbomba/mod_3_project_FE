@@ -78,9 +78,33 @@
               <div class="progress-bar progress-bar-striped bg-danger" id="mainTrack" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
           </div>
-          <button class="btn save" id="saveTrack" data-key="6">Save</button>
+          <button class="btn save" id="saveTrack" data-toggle="modal" data-target="#artistSongSave">Save</button>
           <button class="btn play" id="play_all">Play (spacebar)</button>
         </div>
+
+        <div class="modal fade" id="artistSongSave" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header text-center">
+                  <h4 class="modal-title w-100 font-weight-bold">Save Your Song!</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="modalClose">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body mx-3">
+                  <div class="md-form mb-5">
+                      <input type="text" id="artistName" class="form-control" placeholder="Your Name">
+                  </div>
+                  <div class="md-form mb-4">
+                      <input type="text" id="songTitle" class="form-control" placeholder="Your Song Title">
+                  </div>
+              </div>
+              <div class="modal-footer d-flex justify-content-center">
+                  <button type="submit" class="btn btn-danger" id="submit">Submit</i></button>
+              </div>
+          </div>
+        </div>
+      </div>
 
         <div class="tracks">
             <h5>Layer One</h5>

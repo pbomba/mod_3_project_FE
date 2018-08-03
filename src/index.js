@@ -9,6 +9,8 @@ pulloutTab.addEventListener('click', showGallery)
 closeBar.addEventListener('click', closeGallery)
 document.addEventListener('DOMContentLoaded', getSongs)
 
+let submitSong = document.querySelector('#submit');
+
 // eventArray[0] = reserved, eventArray[1] = track 1, eventArray[2] = track 2, eventArray[3] = track 3
 let eventArray = [[{beat: ""}], [], [], []]
 let rec_start = 0
@@ -16,7 +18,7 @@ let recording_track = 0
 let current_track = 0
 let current_beat
 let songData = [[]]
-
+let modalClose = document.querySelector('#modalClose');
 
 function setup() {
 	sounds = {
@@ -84,7 +86,7 @@ function clickHandler(e) {
 				sounds[e.target.id].setVolume(0.3)
 			}
 		// if the button is "record"
-		} else if (e.target.classList.contains("record")){
+	} else if (e.target.classList.contains("record")){
 			if (e.target.innerText === "Record") {
 				loadBar(e)
 				recording_track = parseInt(e.target.dataset.id)
@@ -102,7 +104,7 @@ function clickHandler(e) {
 				resetRec()
 			}
 		// if the button is "play"
-		} else if (e.target.classList.contains("play")){
+	} else if (e.target.classList.contains("play")){
 		current_track = parseInt(e.target.dataset.id)
 			if (e.target.id === "play_all") {
 				// play the entire song
@@ -114,25 +116,29 @@ function clickHandler(e) {
 			soundTimesArray = mapArray(current_track)
 			playTrack(soundTimesArray)
 			}
-		} else if (e.target.id === 'saveTrack'){
+	} else if (e.target.id === 'submit'){
 		//requires na me of song, artist name, song data
+		let artistName = document.querySelector('#artistName').value;
+		let songTitle = document.querySelector('#songTitle').value;
 		fetch('http://localhost:3000/api/v1/songs', {
 			method: 'POST',
 			headers: {'Accept': 'application/json',
       				  'Content-Type': 'application/json'},
 			body: JSON.stringify({
-				name: 'song 3',
+				name: `${songTitle}`,
 				song_data: JSON.stringify(eventArray),
-				artist_name: "test_name"
+				artist_name: `${artistName}`
 			})
 		})
-		} else if (e.target.className === 'play-button'){
+		document.getElementById('modalClose').click();
+	} else if (e.target.className === 'play-button'){
 		let id = e.target.id
 		eventArray = songData[id]
 		eventArray = JSON.parse(eventArray)
 		let track = mergeTracks()
 		playTrack(track)
 	}
+		 //ends Else
 }
 
 function keyDownHandler(e) {
@@ -590,10 +596,7 @@ function loadBar(event) {
 	}, 500);
 }
 
-//Gets Pullout Tab
-
-// pulloutTab.innerText.addEventListener('click', showGallery)
-
+//Opens gallery tab
 function showGallery(event) {
   let sidebar = document.getElementById('sidebar')
 	  if (sidebar.style.display === "none") {
@@ -605,11 +608,18 @@ function showGallery(event) {
 		}
 }
 
-//Grabs X of Open sidebar
-
-
+//Closes gallery tab
 function closeGallery(event) {
   let sidebar = document.getElementById('sidebar')
 	sidebar.style.display = "none";
 	pulloutTab.style.display = "block";
 }
+
+//Grabs Save Button
+// let saveTrack = document.querySelector('#saveTrack')
+//
+// submitSong.addEventListener('click', handleSong)
+//
+// function handleSong() {
+//
+// }
