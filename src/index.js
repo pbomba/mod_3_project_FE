@@ -137,6 +137,10 @@ function clickHandler(e) {
 		eventArray = JSON.parse(eventArray)
 		let track = mergeTracks()
 		playTrack(track)
+	} else if (e.target.classList.contains("delete")) {
+		let del_track = e.target.dataset.id
+		eventArray[del_track] = []
+		alert(`track ${del_track} deleted!`)
 	}
 		 //ends Else
 }
@@ -364,69 +368,69 @@ function keyDownHandler(e) {
 				sounds['ping'].setVolume(0.3)
 				break
 			case 'q' :
-			sounds['synthC'].play()
-			sounds['synthC'].setVolume(0.3)
-			break
+				sounds['synthC'].play()
+				sounds['synthC'].setVolume(0.3)
+				break
 			case 'w' :
-			sounds['synthD'].play()
-			sounds['synthD'].setVolume(0.3)
-			break
+				sounds['synthD'].play()
+				sounds['synthD'].setVolume(0.3)
+				break
 			case 'e' :
-			sounds['synthE'].play()
-			sounds['synthE'].setVolume(0.3)
-			break
+				sounds['synthE'].play()
+				sounds['synthE'].setVolume(0.3)
+				break
 			case 'r' :
-			sounds['synthF'].play()
-			sounds['synthF'].setVolume(0.3)
-			break
+				sounds['synthF'].play()
+				sounds['synthF'].setVolume(0.3)
+				break	
 			case 't' :
-			sounds['synthG'].play()
-			sounds['synthG'].setVolume(0.3)
-			break
+				sounds['synthG'].play()
+				sounds['synthG'].setVolume(0.3)
+				break	
 			case 'y' :
-			sounds['synthA'].play()
-			sounds['synthA'].setVolume(0.3)
-			break
+				sounds['synthA'].play()
+				sounds['synthA'].setVolume(0.3)
+				break
 			case 'u' :
-			sounds['synthB'].play()
-			sounds['synthB'].setVolume(0.3)
-			break
+				sounds['synthB'].play()
+				sounds['synthB'].setVolume(0.3)
+				break	
 			case 'i' :
-			sounds['synthC2'].play()
-			sounds['synthC2'].setVolume(0.3)
-			break
+				sounds['synthC2'].play()
+				sounds['synthC2'].setVolume(0.3)
+				break
 			case 'a' :
-			sounds['catC'].play()
-			sounds['catC'].setVolume(0.3)
-			break
+				sounds['catC'].play()
+				sounds['catC'].setVolume(0.3)
+				break
 			case 's' :
-			sounds['catD'].play()
-			sounds['catD'].setVolume(0.3)
-			break
+				sounds['catD'].play()
+				sounds['catD'].setVolume(0.3)
+				break
 			case 'd' :
-			sounds['catE'].play()
-			sounds['catE'].setVolume(0.3)
-			break
+				sounds['catE'].play()
+				sounds['catE'].setVolume(0.3)
+				break
 			case 'f' :
-			sounds['catF'].play()
-			sounds['catF'].setVolume(0.3)
-			break
+				sounds['catF'].play()
+				sounds['catF'].setVolume(0.3)
+				break	
 			case 'g' :
-			sounds['catG'].play()
-			sounds['catG'].setVolume(0.3)
-			break
+				sounds['catG'].play()
+				sounds['catG'].setVolume(0.3)
+				break	
 			case 'h' :
-			sounds['catA'].play()
-			sounds['catA'].setVolume(0.3)
-			break
+				sounds['catA'].play()
+				sounds['catA'].setVolume(0.3)
+				break
 			case 'j' :
-			sounds['catB'].play()
-			sounds['catB'].setVolume(0.3)
-			break
+				sounds['catB'].play()
+				sounds['catB'].setVolume(0.3)
+				break	
 			case 'k' :
-			sounds['catC2'].play()
-			sounds['catC2'].setVolume(0.3)
-			break
+				sounds['catC2'].play()
+				sounds['catC2'].setVolume(0.3)
+				break				
 			// case "spacebar" :
 
 			case 'Enter' :
@@ -444,10 +448,16 @@ function startRecording (timeStamp, track) {
 	eventArray[track] = []
 	setBeat()
 	all_rec_btns = document.querySelectorAll('.record')
+	all_play_btns = document.querySelectorAll('.play')
 	play_all_button = document.querySelector('#play_all')
+	save_button = document.querySelectorAll('.save')
+	all_del_btns = document.querySelectorAll('.delete')
 	rec_start = timeStamp
 	rec_btn = document.querySelector(`#record_${track}`)
-	all_rec_btns.forEach (button => button.disabled = true)
+	all_rec_btns.forEach(button => button.disabled = true)
+	all_play_btns.forEach(button => button.disabled = true)
+	save_button.forEach(button => button.disabled = true)
+	all_del_btns.forEach(button => button.disabled = true)
 	rec_btn.disabled = false
 	all_rec_btns.forEach (button => button.classList.add('disabledBtn'))
 	rec_btn.classList.remove('disabledBtn')
@@ -480,6 +490,9 @@ function setBeat(){
 
 function resetRec () {
 	all_rec_btns.forEach (button => button.disabled = false)
+	all_play_btns.forEach (button => button.disabled = false)
+	save_button.forEach (button => button.disabled = false)
+	all_del_btns.forEach(button => button.disabled = false)
 	all_rec_btns.forEach (button => button.classList.remove('disabledBtn'))
 	rec_btn.innerText = "Record"
 	let play_all_button = document.querySelector('#play_all')
@@ -506,6 +519,10 @@ function mapArray(track) {
 }
 
 function playTrack(soundTimesArray) {
+	all_play_btns.forEach (button => button.disabled = true)
+	all_rec_btns.forEach (button => button.disabled = true)
+	save_button.forEach (button => button.disabled = true)
+	all_del_btns.forEach(button => button.disabled = true)
 	soundTimesArray.shift()
 	let stopTimeObject = soundTimesArray.pop()
 	sounds[eventArray[0][0].beat].play()
@@ -515,7 +532,17 @@ function playTrack(soundTimesArray) {
 		clearInterval(intervalID)
 	}, stopTimeObject.time )
 	soundTimesArray.forEach( event => setTimeout( () => playSound(event.sound), event.time))
+	setTimeout(() => {
+		resetButtons()
+	}, stopTimeObject.time )
 	}
+
+function resetButtons(){
+	all_play_btns.forEach (button => button.disabled = false)
+	all_rec_btns.forEach (button => button.disabled = false)
+	save_button.forEach (button => button.disabled = false)
+	all_del_btns.forEach(button => button.disabled = false)
+}
 
 function playTrackWithoutStop(soundTimesArray) {
 	soundTimesArray.shift()
