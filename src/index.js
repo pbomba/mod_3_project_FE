@@ -360,86 +360,107 @@ function keyDownHandler(e) {
 			case '1' :
 				sounds['coin'].play()
 				sounds['coin'].setVolume(0.3)
+				buttonFeedback('coin')
 				break
 			case '2' :
 				sounds['horn'].play()
 				sounds['horn'].setVolume(0.3)
+				buttonFeedback('horn')
 				break
 			case '3' :
 				sounds['beep'].play()
 				sounds['beep'].setVolume(0.3)
+				buttonFeedback('beep')
 				break
 			case '4' :
 				sounds['boop'].play()
 				sounds['boop'].setVolume(0.3)
+				buttonFeedback('boop')
 				break
 			case '5' :
 				sounds['ping'].play()
 				sounds['ping'].setVolume(0.3)
+				buttonFeedback('ping')
 				break
 			case 'q' :
 				sounds['synthC'].play()
 				sounds['synthC'].setVolume(0.3)
+				buttonFeedback('synthC')
 				break
 			case 'w' :
 				sounds['synthD'].play()
 				sounds['synthD'].setVolume(0.3)
+				buttonFeedback('synthD')
 				break
 			case 'e' :
 				sounds['synthE'].play()
 				sounds['synthE'].setVolume(0.3)
+				buttonFeedback('synthE')
 				break
 			case 'r' :
 				sounds['synthF'].play()
 				sounds['synthF'].setVolume(0.3)
+				buttonFeedback('synthF')
 				break	
 			case 't' :
 				sounds['synthG'].play()
 				sounds['synthG'].setVolume(0.3)
+				buttonFeedback('synthG')
 				break	
 			case 'y' :
 				sounds['synthA'].play()
 				sounds['synthA'].setVolume(0.3)
+				buttonFeedback('synthA')
 				break
 			case 'u' :
 				sounds['synthB'].play()
 				sounds['synthB'].setVolume(0.3)
+				buttonFeedback('synthB')
 				break	
 			case 'i' :
 				sounds['synthC2'].play()
 				sounds['synthC2'].setVolume(0.3)
+				buttonFeedback('synthC2')
 				break
 			case 'a' :
 				sounds['catC'].play()
 				sounds['catC'].setVolume(0.3)
+				buttonFeedback('catC')
 				break
 			case 's' :
 				sounds['catD'].play()
 				sounds['catD'].setVolume(0.3)
+				buttonFeedback('catD')
 				break
 			case 'd' :
 				sounds['catE'].play()
 				sounds['catE'].setVolume(0.3)
+				buttonFeedback('catE')
 				break
 			case 'f' :
 				sounds['catF'].play()
 				sounds['catF'].setVolume(0.3)
+				buttonFeedback('catF')
 				break	
 			case 'g' :
 				sounds['catG'].play()
 				sounds['catG'].setVolume(0.3)
+				buttonFeedback('catG')
 				break	
 			case 'h' :
 				sounds['catA'].play()
 				sounds['catA'].setVolume(0.3)
+				buttonFeedback('catA')
 				break
 			case 'j' :
 				sounds['catB'].play()
 				sounds['catB'].setVolume(0.3)
+				buttonFeedback('catB')
 				break	
 			case 'k' :
 				sounds['catC2'].play()
 				sounds['catC2'].setVolume(0.3)
+				buttonFeedback('catC2')
 				break				
 			// case "spacebar" :
 
@@ -527,7 +548,7 @@ function playTrack(soundTimesArray) {
 	all_del_btns.forEach(button => button.disabled = true)
 	soundTimesArray.shift()
 	let stopTimeObject = soundTimesArray.pop()
-	sounds[eventArray[0][0].beat].play()
+	sounds[eventArray[0][0].beat].loop()
 	sounds[eventArray[0][0].beat].setVolume(4.0)
 	setTimeout(() => {
 		sounds[eventArray[0][0].beat].stop()
@@ -651,4 +672,9 @@ function closeGallery(event) {
   let sidebar = document.getElementById('sidebar')
 	sidebar.style.display = "none";
 	pulloutTab.style.display = "block";
+}
+
+function buttonFeedback(button) {
+	document.getElementById(button).style.background = 'white'
+	setTimeout( () => document.getElementById(button).style.background = '#343a40', 60)
 }
