@@ -19,6 +19,15 @@ let current_track = 0
 let current_beat
 let songData = [[]]
 let modalClose = document.querySelector('#modalClose');
+let	all_rec_btns = document.querySelectorAll('.record')
+let	all_play_btns = document.querySelectorAll('.play')
+let	play_all_button = document.querySelector('#play_all')
+let	save_button = document.querySelectorAll('.save')
+let	all_del_btns = document.querySelectorAll('.delete')
+
+all_play_btns.forEach(button => button.disabled = true)
+save_button.forEach(button => button.disabled = true)
+all_del_btns.forEach(button => button.disabled = true)
 
 function setup() {
 	sounds = {
@@ -141,6 +150,7 @@ function clickHandler(e) {
 		let del_track = e.target.dataset.id
 		eventArray[del_track] = []
 		alert(`track ${del_track} deleted!`)
+		resetButtons()
 	}
 		 //ends Else
 }
@@ -447,11 +457,6 @@ function keyDownHandler(e) {
 function startRecording (timeStamp, track) {
 	eventArray[track] = []
 	setBeat()
-	all_rec_btns = document.querySelectorAll('.record')
-	all_play_btns = document.querySelectorAll('.play')
-	play_all_button = document.querySelector('#play_all')
-	save_button = document.querySelectorAll('.save')
-	all_del_btns = document.querySelectorAll('.delete')
 	rec_start = timeStamp
 	rec_btn = document.querySelector(`#record_${track}`)
 	all_rec_btns.forEach(button => button.disabled = true)
@@ -489,10 +494,7 @@ function setBeat(){
 }
 
 function resetRec () {
-	all_rec_btns.forEach (button => button.disabled = false)
-	all_play_btns.forEach (button => button.disabled = false)
-	save_button.forEach (button => button.disabled = false)
-	all_del_btns.forEach(button => button.disabled = false)
+	resetButtons()
 	all_rec_btns.forEach (button => button.classList.remove('disabledBtn'))
 	rec_btn.innerText = "Record"
 	let play_all_button = document.querySelector('#play_all')
@@ -538,10 +540,19 @@ function playTrack(soundTimesArray) {
 	}
 
 function resetButtons(){
-	all_play_btns.forEach (button => button.disabled = false)
+	all_play_btns[1].disabled = eventArray[1].length > 0 ? false : true
+	all_play_btns[2].disabled = eventArray[2].length > 0 ? false : true
+	all_play_btns[3].disabled = eventArray[3].length > 0 ? false : true
+	all_del_btns[0].disabled = eventArray[1].length > 0 ? false : true
+	all_del_btns[1].disabled = eventArray[2].length > 0 ? false : true
+	all_del_btns[2].disabled = eventArray[3].length > 0 ? false : true
 	all_rec_btns.forEach (button => button.disabled = false)
-	save_button.forEach (button => button.disabled = false)
-	all_del_btns.forEach(button => button.disabled = false)
+	all_play_btns[0].disabled = true
+	save_button.forEach (button => button.disabled = true)
+	if (eventArray[1].length > 0 || eventArray[2].length > 0 || eventArray[3].length > 0) {
+		save_button.forEach (button => button.disabled = false)
+		all_play_btns[0].disabled = false
+	}
 }
 
 function playTrackWithoutStop(soundTimesArray) {
