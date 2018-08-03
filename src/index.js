@@ -64,8 +64,8 @@ function addToList(songs){
 
 function makeTemplate(song){
 	songData.push(song['attributes']['song-data'])
-	document.querySelector('.song-list').innerHTML += `<li>${song.attributes.name}
-	<button class="play-button" id="${song.id}">PLAY</button></li>`
+	document.querySelector('.song-list').innerHTML += `<li>${song.attributes.name} ||
+	<button class="btn btn-danger play-button" id="${song.id}">PLAY</button></li><br/>`
 }
 
 function clickHandler(e) {
@@ -231,7 +231,7 @@ function keyDownHandler(e) {
 			eventTime = e.timeStamp
 			eventObj = {sound: eventItem, time: eventTime}
 			eventArray[recording_track].push(eventObj)
-			break	
+			break
 			case 't' :
 			e.preventDefault()
 			sounds['synthG'].play()
@@ -240,7 +240,7 @@ function keyDownHandler(e) {
 			eventTime = e.timeStamp
 			eventObj = {sound: eventItem, time: eventTime}
 			eventArray[recording_track].push(eventObj)
-			break	
+			break
 			case 'y' :
 			e.preventDefault()
 			sounds['synthA'].play()
@@ -303,7 +303,7 @@ function keyDownHandler(e) {
 			eventTime = e.timeStamp
 			eventObj = {sound: eventItem, time: eventTime}
 			eventArray[recording_track].push(eventObj)
-			break	
+			break
 			case 'g' :
 			e.preventDefault()
 			sounds['catG'].play()
@@ -312,7 +312,7 @@ function keyDownHandler(e) {
 			eventTime = e.timeStamp
 			eventObj = {sound: eventItem, time: eventTime}
 			eventArray[recording_track].push(eventObj)
-			break	
+			break
 			case 'h' :
 			e.preventDefault()
 			sounds['catA'].play()
@@ -339,7 +339,7 @@ function keyDownHandler(e) {
 			eventTime = e.timeStamp
 			eventObj = {sound: eventItem, time: eventTime}
 			eventArray[recording_track].push(eventObj)
-			break										
+			break
 			case 'Enter' :
 			sounds['airhorn'].play()
 			sounds['airhorn'].setVolume(0.5)
