@@ -11,8 +11,8 @@ Ruby 2.3.3 Postgres
 bundle install rake db:migrate rails s
 
 <h3>Contributors</h3>
-Paul Bomba, Montez Smith & Indira Williams 
-Copyright (c) 2018
+Paul Bomba, Montez Smith & Indira Williams
+&copy; 2018
 
 <h4>MIT License</h4>
 
