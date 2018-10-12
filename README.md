@@ -12,11 +12,9 @@ bundle install rake db:migrate rails s
 
 <h3>Contributors</h3>
 Paul Bomba, Montez Smith & Indira Williams 
-<br/>
-
-<b>MIT License</b>
-
 Copyright (c) 2018
+
+<h4>MIT License</h4>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
