@@ -12,7 +12,7 @@ bundle install rake db:migrate rails s
 
 <h3>Contributors</h3>
 Paul Bomba, Montez Smith & Indira Williams
-
+<br>
 
 <b>MIT License</b>
 
